@@ -12,7 +12,7 @@ using SetupSphere.Models;
 namespace SetupSphere.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231015200013_InitialCreate")]
+    [Migration("20231015203057_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
