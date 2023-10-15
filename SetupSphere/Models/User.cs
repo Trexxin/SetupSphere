@@ -22,7 +22,10 @@ namespace SetupSphere.Models
         public virtual ICollection<Comment> Comments { get; set; }
         
         // Messages sent by the user
-        public virtual ICollection<Message> Messages { get; set; }
+        public virtual ICollection<Message> MessagesSent { get; set; }
+        
+        // Messages received by the user
+        public virtual ICollection<Message> MessagesRecieved { get; set; }
     }
 }
 
