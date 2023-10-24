@@ -7,6 +7,7 @@ namespace SetupSphere.Models
         // Primary Key
         [Key] public int UserID { get; set; }
         
+        public string Username { get; set; }
         public string PasswordHash { get; set; }
         public string Email { get; set; }
         public string ProfilePicture { get; set; }
