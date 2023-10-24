@@ -12,8 +12,8 @@ using SetupSphere.Models;
 namespace SetupSphere.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231015203057_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20231024020315_UpdateCascadeBehavior")]
+    partial class UpdateCascadeBehavior
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -163,6 +163,10 @@ namespace SetupSphere.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("UserID");
 
                     b.ToTable("Users");
@@ -184,13 +188,13 @@ namespace SetupSphere.Migrations
                     b.HasOne("SetupSphere.Models.Setup", "Setup")
                         .WithMany("Comments")
                         .HasForeignKey("SetupID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("SetupSphere.Models.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Setup");
@@ -200,16 +204,16 @@ namespace SetupSphere.Migrations
 
             modelBuilder.Entity("SetupSphere.Models.Message", b =>
                 {
-                    b.HasOne("SetupSphere.Models.User", "Sender")
-                        .WithMany("MessagesSent")
-                        .HasForeignKey("ReceiverID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("SetupSphere.Models.User", "Receiver")
                         .WithMany("MessagesRecieved")
+                        .HasForeignKey("ReceiverID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SetupSphere.Models.User", "Sender")
+                        .WithMany("MessagesSent")
                         .HasForeignKey("SenderID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Receiver");
@@ -222,7 +226,7 @@ namespace SetupSphere.Migrations
                     b.HasOne("SetupSphere.Models.User", "User")
                         .WithMany("Setups")
                         .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");
